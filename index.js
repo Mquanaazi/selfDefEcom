@@ -1,12 +1,12 @@
 import express from 'express'
 import productsRoutes from './routes/productsRoutes.js'
 import usersRoutes from './routes/usersRoutes.js'
-// import cors from "cors";
+import cors from "cors";
 
 const app=express()
 let port=process.env.PORT
 app.use(express.json())
-// app.use(cors({origin:'http://localhost:8080',credentials:true}))
+app.use(cors({origin:'http://localhost:8082',credentials:true}))
 
 
 app.use('/products',productsRoutes)

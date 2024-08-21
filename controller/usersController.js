@@ -2,13 +2,28 @@ import {getUsersDb,getUserDb,insertUserDb,deleteUserDb,updateUserDb} from '../mo
 import {hash} from 'bcrypt'
 
 const fetchUsers=async (req,res) => {
-    res.send(await getUsersDb())
-    console.log('yahoo successful fetchAll');
-}
+
+    try {
+        res.send(await getUsersDb())
+        console.log('yahoo successful fetchAll');
+        
+    } catch (error) {
+        res.send('Error  fetching users')
+        throw error
+
+    }
+    }
 
 const fetchUser=async (req,res) => {
-    res.json(await getUserDb(req.params.userID))
-    console.log('great work fetch1 👌');
+    try {
+        res.json(await getUserDb(req.params.userID))
+        console.log('great work fetch1 👌');
+        
+    } catch (error) {
+        res.send('error fetching a single user')
+        throw error;
+        
+    }
 }   
 
 const insertUser=async (req,res) => {
@@ -18,7 +33,7 @@ const insertUser=async (req,res) => {
         if (err) throw err
         console.log(hashedP);
         
-        await insertUserDb(firstName,lastName,userAge,Gender,userRole,emailAdd,userProfile,userPass,req.params.userID)
+        await insertUserDb(firstName,lastName,userAge,Gender,userRole,emailAdd,userProfile,hashedP,req.params.userID)
         console.log('great work mfana 👌');
     })
 
@@ -26,30 +41,43 @@ const insertUser=async (req,res) => {
 }   
 
 const deleteUser=async (req,res) => {
-    await deleteUserDb(req.params.userID)
-    res.send(await getUsersDb())
-    console.log('great work broe 👌');
+    try {
+        await deleteUserDb(req.params.userID)
+        res.send(await getUsersDb())
+        console.log('great work broe 👌');
+        
+    } catch (error) {
+       res.send('error deleting user') 
+       throw error;
+    }
 }   
 const updateUser=async (req,res) => {
-    let {firstName,lastName,userAge,Gender,userRole,emailAdd,userProfile,userPass}=req.body
-    let User=await getUserDb(req.params.userID)
-    console.log(User)
-    
-    firstName?firstName :firstName=User.firstName
-    lastName?lastName :lastName=User.lastName
-    userAge?userAge:userAge=User.userAge
-    Gender?Gender :Gender=User.Gender
-    userRole?userRole :userRole=User.userRole
-    emailAdd?emailAdd:emailAdd=User.emailAdd
-    userProfile?userProfile:userProfile=User.userProfile
-    userPass?userPass:userPass=User.userPass
-    
-    await updateUserDb(firstName,lastName,userAge,Gender,userRole,emailAdd,userProfile,userPass,req.params.userID)
-    res.send(await getUsersDb())
-    console.log('great work son 👌');
+    try {
+        let {firstName,lastName,userAge,Gender,userRole,emailAdd,userProfile,userPass}=req.body
+        let User=await getUserDb(req.params.userID)
+        console.log(User)
+        
+        firstName?firstName :firstName=User.firstName
+        lastName?lastName :lastName=User.lastName
+        userAge?userAge:userAge=User.userAge
+        Gender?Gender :Gender=User.Gender
+        userRole?userRole :userRole=User.userRole
+        emailAdd?emailAdd:emailAdd=User.emailAdd
+        userProfile?userProfile:userProfile=User.userProfile
+        userPass?userPass:userPass=User.userPass
+        
+        await updateUserDb(firstName,lastName,userAge,Gender,userRole,emailAdd,userProfile,userPass,req.params.userID)
+        res.send(await getUsersDb())
+        console.log('great work son 👌');
+        
+    } catch (error) {
+       res.send('error updating the user')
+       throw error
+    }
 }   
 const loginUser= (req,res)=>{
-    res.json({message:"Signed in successfully!",token:req.body.token})
+    res.json({message:"Signed in successfully!"})
+    
 }
 
 export {fetchUsers,fetchUser,insertUser,deleteUser,updateUser,loginUser}
