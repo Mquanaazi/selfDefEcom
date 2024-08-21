@@ -1,7 +1,5 @@
-<!-- src/views/Home.vue -->
 <template>
-  <div class="home">
-    <nav :class="{ 'nav-open': isNavOpen }">
+  <nav :class="{ 'nav-open': isNavOpen }">
     <div class="navbar-header">
       <img src="https://zakariyasalie.github.io/allimages/images/logo1.png" alt="Logo" class="navbar-logo">
       <button class="navbar-toggle" @click="toggleNav" aria-label="Toggle Navigation">
@@ -17,44 +15,24 @@
       <a href="#Product" @click="closeNav">Product</a>
     </div>
   </nav>
-    <section class="hero">  
-      <div class="content-box">
-      <div class="hero-content">
-        <h1>Welcome to Safety.<br>Your Abode of Peace Awaits...</h1>
-        <router-link to="/get-started" class="btn">Get Started</router-link>
-      </div>
-    </div>
-    </section>
-  </div>
-  <div>
-    <!-- Header Section -->
-    <section class="header-section">
-      <p class="location">CERTIFIED WEB DESIGNER BASED IN OAKLAND, CALIFORNIA</p>
-      <h2 class="title">Problems I can help with</h2>
-      <div class="divider"></div>
-    </section>
-
-    <!-- Grid Section -->
-    <section class="grid-section">
-      <div class="grid-container">
-        <div class="grid-item">
-          <img src="" alt="Problem 1">
-        </div>
-        <div class="grid-item">
-          <img src="" alt="Problem 2">
-        </div>
-        <div class="grid-item">
-          <img src="" alt="Problem 3">
-        </div>
-      </div>
-    </section>
-  </div>
-
 </template>
 
 <script>
 export default {
-  name: 'Home',
+  name: 'NavbarComp',
+  data() {
+    return {
+      isNavOpen: false,
+    };
+  },
+  methods: {
+    toggleNav() {
+      this.isNavOpen = !this.isNavOpen;
+    },
+    closeNav() {
+      this.isNavOpen = false;
+    },
+  },
 };
 </script>
 
@@ -187,48 +165,4 @@ nav {
     padding: 0.4rem 0.8rem;
   }
 }
-.home {
-  text-align: center;
-}
-.hero {
-  height: 100vh;
-  background: url('https://zakariyasalie.github.io/allimages/images/background1.png') no-repeat center center/cover;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  position: relative;
-}
-
-
-.btn {
-  padding: 15px 30px;
-  background-color:  #1abc9c; /* Green button */
-  color: #fff;
-  text-decoration: none;
-  border-radius: 5px;
-  font-size: 1.2rem;
-  font-weight: bold;
-}
-
-.btn:hover {
-  background-color:  rgba(44, 62, 80, 0.9);
-}
-.content-box {
-  border: 2px solid #1abc9c;
-  background-color: rgba(44, 62, 80, 0.9);
-  padding: 1rem;
-  margin-bottom: 1rem;
-  transition: transform 0.3s, border-color 0.3s, box-shadow 0.3s;
-  color: #fff;
-}
-
-.content-box:hover {
-  transform: scale(1.05);
-  border-color: #1abc9c;
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
-  color: #1abc9c;
-}
-
 </style>
-
