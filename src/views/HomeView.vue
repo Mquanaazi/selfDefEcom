@@ -1,97 +1,124 @@
-<!-- src/views/Home.vue -->
 <template>
   <div class="home">
     <nav :class="{ 'nav-open': isNavOpen }">
-    <div class="navbar-header">
-      <img src="https://zakariyasalie.github.io/allimages/images/logo1.png" alt="Logo" class="navbar-logo">
-      <button class="navbar-toggle" @click="toggleNav" aria-label="Toggle Navigation">
-        &#9776; <!-- Hamburger menu icon -->
-      </button>
-    </div>
-    <div class="nav-links">
-      <a href="#home" @click="closeNav">Home</a>
-      <a href="#about" @click="closeNav">About</a>
-      <a href="#Contact" @click="closeNav">Contact</a>
-      <a href="#Products" @click="closeNav">Products</a>
-      <a href="#Admin" @click="closeNav">Admin</a>
-      <a href="#Product" @click="closeNav">Product</a>
-    </div>
-  </nav>
-    <section class="hero">  
+      <div class="navbar-header">
+        <img src="https://zakariyasalie.github.io/allimages/images/logo1.png" alt="Logo" class="navbar-logo">
+        <button class="navbar-toggle" @click="toggleNav" aria-label="Toggle Navigation">
+          &#9776; <!-- Hamburger menu icon -->
+        </button>
+      </div>
+      <div class="nav-links">
+        <a href="#home" @click="closeNav">Home</a>
+        <a href="#About" @click="closeNav">About</a>
+        <a href="#Contact" @click="closeNav">Contact</a>
+        <a href="#Products" @click="closeNav">Products</a>
+        <a href="#Admin" @click="closeNav">Admin</a>
+        <a href="#Product" @click="closeNav">Product</a>
+      </div>
+    </nav>
+
+    <section class="hero">
       <div class="content-box">
-      <div class="hero-content">
-        <h1>Welcome to Safety.<br>Your Abode of Peace Awaits...</h1>
-        <router-link to="/get-started" class="btn">Get Started</router-link>
+        <div class="hero-content">
+          <h1>Welcome to Safety.<br>Your Abode of Peace Awaits...</h1>
+          <div class="btnbox">
+            <router-link to="#home" class="btn">Get Started</router-link>
+          </div>
+        </div>
       </div>
+    </section>
+
+    <div>
+      <!-- Header Section -->
+      <section class="header-section">
+        <p class="location">CERTIFIED WEB DESIGNER BASED IN OAKLAND, CALIFORNIA</p>
+        <h2 class="title">Problems I can help with</h2>
+        <div class="divider"></div>
+      </section>
+  
+      <!-- Grid Section -->
+      <section class="grid-section">
+        <div class="grid-container">
+          <div class="grid-item">
+            <img src="https://zakariyasalie.github.io/allimages/images/TacticalFlashlight.png" alt="Problem 1" loading="lazy">
+            <h3>Web Design</h3>
+            <p>Focus on how you can help and benefit your user. Use simple words to avoid confusion.</p>
+          </div>
+          <div class="grid-item">
+            <img src="https://zakariyasalie.github.io/allimages/images/taser.png" alt="Problem 2" loading="lazy">
+            <h3>Graphic Design</h3>
+            <p>Focus on how you can help and benefit your user. Use simple words to avoid confusion.</p>
+          </div>
+          <div class="grid-item">
+            <img src="https://zakariyasalie.github.io/allimages/images/PepperSpray.png" alt="Problem 3" loading="lazy">
+            <h3>Content Creation</h3>
+            <p>Focus on how you can help and benefit your user. Use simple words to avoid confusion.</p>
+          </div>
+        </div>
+      </section>
     </div>
-    </section>
   </div>
-  <div>
-    <!-- Header Section -->
-    <section class="header-section">
-      <p class="location">CERTIFIED WEB DESIGNER BASED IN OAKLAND, CALIFORNIA</p>
-      <h2 class="title">Problems I can help with</h2>
-      <div class="divider"></div>
-    </section>
-
-    <!-- Grid Section -->
-    <section class="grid-section">
-      <div class="grid-container">
-        <div class="grid-item">
-          <img src="" alt="Problem 1">
-        </div>
-        <div class="grid-item">
-          <img src="" alt="Problem 2">
-        </div>
-        <div class="grid-item">
-          <img src="" alt="Problem 3">
-        </div>
-      </div>
-    </section>
-  </div>
-
 </template>
 
 <script>
 export default {
   name: 'Home',
+  data() {
+    return {
+      isNavOpen: false
+    };
+  },
+  methods: {
+    toggleNav() {
+      this.isNavOpen = !this.isNavOpen;
+    },
+    closeNav() {
+      this.isNavOpen = false;
+    }
+  }
 };
 </script>
 
 <style scoped>
-@keyframes logoAnimation {
-  0%, 100% {
-    transform: rotate(0deg) scale(1);
-  }
-  50% {
-    transform: rotate(360deg) scale(1.1);
-  }
+/* General Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  overflow-x: hidden;
+}
+
+/* Navbar Styles */
 nav {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background-color: #2c3e50; /* Darker background for better contrast */
+  background-color: #2c3e50;
   padding: 1rem 2rem;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   position: fixed;
   width: 100%;
   top: 0;
   left: 0;
   z-index: 1000;
-  transition: transform 0.3s ease; /* Smooth transition for opening/closing */
+  transition: transform 0.3s ease;
 }
 
 .navbar-logo {
   width: 50px;
   height: 50px;
   border-radius: 50%;
-  animation: logoAnimation 5s infinite linear; /* Infinite animation */
+  animation: logoAnimation 5s infinite linear;
 }
 
 .navbar-toggle {
-  display: none; /* Hide toggle button by default */
+  display: none;
   font-size: 1.5rem;
   color: #ecf0f1;
   background: none;
@@ -106,104 +133,40 @@ nav {
 }
 
 .nav-links a {
-  color: #ecf0f1; /* Light text color */
+  color: #ecf0f1;
   text-decoration: none;
   padding: 0.5rem 1rem;
-  transition: color 0.3s, background-color 0.3s, transform 0.3s; /* Smooth transitions */
-  border-radius: 4px; /* Slightly rounded corners */
-  font-weight: bold; /* Bold font for better readability */
+  transition: color 0.3s, background-color 0.3s, transform 0.3s;
+  border-radius: 4px;
+  font-weight: bold;
 }
 
 .nav-links a:hover {
-  color: #2c3e50; /* Darker text color on hover */
-  background-color: #1abc9c; /* Light green background on hover */
-  transform: scale(1.05); /* Slightly increase size on hover */
+  color: #2c3e50;
+  background-color: #1abc9c;
+  transform: scale(1.05);
 }
 
-.nav-links a:focus {
-  outline: none;
-  background-color: #3498db; /* Light blue background on focus */
-  color: white; /* Ensure text is readable on blue background */
-}
-
-.nav-links a:active {
-  transform: scale(0.95); /* Slightly decrease size when active (clicked) */
-}
-
-/* Media Queries */
-@media (max-width: 768px) {
-  .navbar-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
-  }
-
-  .navbar-toggle {
-    display: block; /* Show the toggle button on mobile */
-  }
-
-  .nav-links {
-    display: none; /* Hide links by default on mobile */
-    flex-direction: column;
-    align-items: center;
-    position: absolute;
-    top: 100%;
-    left: 0;
-    width: 100%;
-    background-color: #2c3e50; /* Darker background for better contrast */
-    z-index: 999;
-    transform: translateY(-100%);
-    transition: transform 0.3s ease;
-  }
-
-  .nav-open .nav-links {
-    transform: translateY(0); /* Slide down animation when navbar is open */
-  }
-
-  .nav-links a {
-    margin: 0.5rem 0;
-    width: 100%;
-    text-align: center;
-  }
-}
-
-@media (max-width: 480px) {
-  nav {
-    padding: 0.5rem;
-  }
-
-  .navbar-logo {
-    width: 40px;
-    height: 40px;
-  }
-
-  .navbar-toggle {
-    font-size: 1.2rem;
-  }
-
-  .nav-links a {
-    font-size: 0.9rem;
-    padding: 0.4rem 0.8rem;
-  }
-}
-.home {
-  text-align: center;
-}
+/* Hero Section */
 .hero {
-  height: 100vh;
+  min-height: 100vh;
   background: url('https://zakariyasalie.github.io/allimages/images/background1.png') no-repeat center center/cover;
   display: flex;
   justify-content: center;
   align-items: center;
   text-align: center;
   position: relative;
+  width: 100%;
 }
 
+.home {
+  width: 100%;
+  overflow-x: hidden;
+}
 
 .btn {
-  padding: 15px 30px;
-  background-color:  #1abc9c; /* Green button */
+  padding: 10px 10px;
+  background-color: #1abc9c;
   color: #fff;
   text-decoration: none;
   border-radius: 5px;
@@ -212,7 +175,89 @@ nav {
 }
 
 .btn:hover {
-  background-color:  rgba(44, 62, 80, 0.9);
+  background-color: rgba(44, 62, 80, 0.9);
+}
+
+/* Header Section */
+.header-section {
+  text-align: center;
+  padding: 50px 20px;
+}
+
+.location {
+  font-size: 0.9rem;
+  color: #999;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+.title {
+  font-size: 2.5rem;
+  margin: 10px 0;
+  color: #111;
+}
+
+.divider {
+  width: 60px;
+  height: 3px;
+  background-color: #008000;
+  margin: 20px auto;
+}
+
+/* Grid Section */
+.grid-section {
+  padding: 50px 20px;
+  background-color: #f5f5f5;
+}
+
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  justify-items: center;
+}
+
+.grid-item {
+  position: relative;
+  background: white;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  text-align: center; /* Ensure text is centered */
+  padding: 20px; /* Added padding for spacing */
+}
+
+.grid-item h3 {
+  margin-top: 15px;
+  color: #111;
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.grid-item p {
+  margin-top: 10px;
+  color: #666;
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+.grid-item img {
+  display: block;
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.grid-item:hover img {
+  transform: scale(1.05);
+}
+
+/* Button Box */
+.btnbox {
+  position: relative;
+  margin-top: 15px;
 }
 .content-box {
   border: 2px solid #1abc9c;
@@ -229,6 +274,4 @@ nav {
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
   color: #1abc9c;
 }
-
 </style>
-
