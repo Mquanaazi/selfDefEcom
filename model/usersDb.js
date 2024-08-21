@@ -19,14 +19,17 @@ const insertUserDb = async(firstName,lastName,userAge,Gender,userRole,emailAdd,u
 const deleteUserDb = async(userID)=>{
     await pool.query('DELETE FROM bfxprsrsz3hdrcp7b87q.users WHERE userID=?',[userID])
 }
-const updateUserDb = async(firstName,lastName,userAge,Gender,userRole,emailAdd,userID)=>{
-    console.log(userID);
+const updateUserDb = async(firstName,lastName,userAge,Gender,userRole,emailAdd,userProfile,userPass,userID)=>{
+    console.log('hehe'+userID);
     
     let [data] = await pool.query(`
-        UPDATE bfxprsrsz3hdrcp7b87q.users SET firstName=?,lastName=?, userAge=?, Gender=?, userRole=?, emailAdd=?, userProfile=?, userPass=?
+        UPDATE bfxprsrsz3hdrcp7b87q.users 
+        SET 
+        firstName=?,lastName=?, userAge=?, Gender=?, 
+        userRole=?, emailAdd=?, userProfile=?, userPass=?
         WHERE userID=?
         `,
-        [firstName,lastName,userAge,Gender,userRole,emailAdd,userID])
+        [firstName,lastName,userAge,Gender,userRole,emailAdd,userProfile,userPass,userID])
     return data
 }
 export {getUsersDb,getUserDb,insertUserDb,deleteUserDb,updateUserDb}

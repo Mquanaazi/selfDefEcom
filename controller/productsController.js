@@ -26,17 +26,17 @@ const deleteProduct=async (req,res) => {
     console.log('great work delete 👌');
 }   
 const updateProduct=async (req,res) => {
-    let {ProdName,quantity,amount,category,prodUrlt}=req.body
+    let {prodName,quantity,amount,Category,prodUrl}=req.body
     let Product=await getProductDb(req.params.productID)
     console.log(Product)
     
-    ProdName?ProdName :ProdName=Product.ProdName
+    prodName?prodName :prodName=Product.prodName
     quantity?quantity :quantity=Product.quantity
     amount?amount:amount=Product.amount
-    category?category :category=Product.category
-    prodUrlt?prodUrlt :prodUrlt=Product.prodUrlt
+    Category?Category :Category=Product.Category
+    prodUrl?prodUrl :prodUrl=Product.prodUrl
       
-    await updateProductDb(ProdName,quantity,amount,amount,category,prodUrlt,req.params.productID)
+    await updateProductDb(prodName,quantity,amount,Category,prodUrl ,req.params.productID)
     res.send(await getProductDb())
     console.log('great work update 👌');
 }   

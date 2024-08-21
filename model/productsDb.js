@@ -28,12 +28,14 @@ const insertProductDb = async(prodName,quantity,amount,Category,prodUrl)=>{
 const deleteProductDb = async(productID)=>{
     await pool.query('DELETE FROM bfxprsrsz3hdrcp7b87q.products WHERE productID=?',[productID])
 }
-const updateProductDb = async(ProdName,quantity,amount,category,prodUrl,productID)=>{
+const updateProductDb = async(prodName,quantity,amount,Category,prodUrl,productID)=>{
     let [data] = await pool.query(`
-        UPDATE bfxprsrsz3hdrcp7b87q.products SET ProdName=?, quantity=? ,amount=? ,category=? ,prodUrl=?
+        UPDATE bfxprsrsz3hdrcp7b87q.products 
+        SET 
+        prodName=?, quantity=? ,amount=? ,Category=? ,prodUrl=?
         WHERE productID=?
         `,
-        [ProdName,quantity,amount,category,prodUrl,productID])
+        [prodName,quantity,amount,Category,prodUrl,productID])
     return data
 }
 
