@@ -1,20 +1,19 @@
 <template>
-  <nav :class="{ 'nav-open': isNavOpen }">
-    <div class="navbar-header">
-      <img src="https://zakariyasalie.github.io/allimages/images/logo1.png" alt="Logo" class="navbar-logo">
-      <button class="navbar-toggle" @click="toggleNav" aria-label="Toggle Navigation">
-        &#9776; <!-- Hamburger menu icon -->
-      </button>
-    </div>
-    <div class="nav-links">
-      <a href="#home" @click="closeNav">Home</a>
-      <a href="#about" @click="closeNav">About</a>
-      <a href="#Contact" @click="closeNav">Contact</a>
-      <a href="#Products" @click="closeNav">Products</a>
-      <a href="#Admin" @click="closeNav">Admin</a>
-      <a href="#Product" @click="closeNav">Product</a>
-    </div>
-  </nav>
+ <nav :class="{ 'nav-open': isNavOpen }">
+  <div class="navbar-header">
+    <img src="https://zakariyasalie.github.io/allimages/images/logo1.png" alt="Logo" class="navbar-logo">
+    <button class="navbar-toggle" @click="toggleNav" aria-label="Toggle Navigation">
+      &#9776; <!-- Hamburger menu icon -->
+    </button>
+  </div>
+  <div class="nav-links">
+    <router-link to="/" @click.native="closeNav">Home</router-link>
+    <router-link to="/about" @click.native="closeNav">About</router-link>
+    <router-link to="/contact" @click.native="closeNav">Contact</router-link>
+    <router-link to="/products" @click.native="closeNav">Products</router-link>
+    <router-link to="/admin" @click.native="closeNav">Admin</router-link>
+  </div>
+</nav>
 </template>
 
 <script>

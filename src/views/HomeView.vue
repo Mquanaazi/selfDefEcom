@@ -1,21 +1,5 @@
 <template>
   <div class="home">
-    <nav :class="{ 'nav-open': isNavOpen }">
-      <div class="navbar-header">
-        <img src="https://zakariyasalie.github.io/allimages/images/logo1.png" alt="Logo" class="navbar-logo">
-        <button class="navbar-toggle" @click="toggleNav" aria-label="Toggle Navigation">
-          &#9776; <!-- Hamburger menu icon -->
-        </button>
-      </div>
-      <div class="nav-links">
-        <a href="#home" @click="closeNav">Home</a>
-        <a href="#About" @click="closeNav">About</a>
-        <a href="#Contact" @click="closeNav">Contact</a>
-        <a href="#Products" @click="closeNav">Products</a>
-        <a href="#Admin" @click="closeNav">Admin</a>
-        <a href="#Product" @click="closeNav">Product</a>
-      </div>
-    </nav>
 
     <section class="hero">
       <div class="content-box">

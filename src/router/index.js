@@ -1,49 +1,38 @@
-import Vue from 'vue';
-import VueRouter from 'vue-router';
-import HomeView from '../views/HomeView.vue';
-import AboutView from '../views/AboutView.vue';
-import ContactView from '../views/ContactView.vue';
-import ProductsView from '../views/ProductsView.vue';
-import AdminView from '../views/AdminView.vue';
-
-Vue.use(VueRouter);
-
+import { createRouter, createWebHistory } from 'vue-router'
 const routes = [
   {
     path: '/',
-    name: 'Home',
-    component: HomeView
+    name: 'home',
+    component: () => import('@/views/HomeView.vue')
   },
   {
     path: '/about',
-    name: 'About',
-    component: AboutView
-  },
-  {
-    path: '/contact',
-    name: 'Contact',
-    component: ContactView
-  },
-  {
-    path: '/products',
-    name: 'Products',
-    component: ProductsView
+    name: 'about',
+    component: () => import('@/views/AboutView')
   },
   {
     path: '/admin',
-    name: 'Admin',
-    component: AdminView
+    name: 'admin',
+    component: () => import('@/views/AdminView')
   },
   {
-    path: '/product',
-    name: 'Product',
-    component: ProductView
-  }
-];
-
-const router = new VueRouter({
-  mode: 'history',
+    path: '/products',
+    name: 'products',
+    component: () => import('@/views/ProductsView.vue')
+  },
+  // {
+  //   path: '/product/:id',
+  //   name: 'product',
+  //   component: () => import('@/views/ProductView.vue')
+  // },
+  {
+    path: '/contact',
+    name: 'contact',
+    component: () => import('@/views/ContactView.vue')
+  },
+]
+const router = createRouter({
+  history: createWebHistory(process.env.BASE_URL),
   routes
-});
-
-export default router;
+})
+export default router
