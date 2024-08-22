@@ -6,7 +6,7 @@
         <div class="hero-content">
           <h1>Welcome to Safety.<br>Your Abode of Peace Awaits...</h1>
           <div class="btnbox">
-            <router-link to="#home" class="btn">Get Started</router-link>
+            <router-link to="/about" class="btn">Get Started</router-link>
           </div>
         </div>
       </div>
