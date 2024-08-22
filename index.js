@@ -6,7 +6,7 @@ import cors from "cors";
 const app=express()
 let port=process.env.PORT
 app.use(express.json())
-app.use(cors({origin:'http://localhost:8081/products',credentials:true}))
+app.use(cors({origin:'http://localhost:8081',credentials:true}))
 
 
 app.use('/products',productsRoutes)
