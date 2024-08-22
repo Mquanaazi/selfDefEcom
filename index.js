@@ -14,13 +14,16 @@ app.use((req, res, next) => {
     res.header("Access-Control-Expose-Headers", "Authorization");
     next()
 })
-app.use(cors())
-app.use(express.json())
-app.use(express.static('public'))
-app.use('/products',productsRoutes)
+app.use(
+    express.static('public'),
+    express.json(),
+    express.urlencoded({
+        extended: true
+    }),
+    cors()
+)
 app.use( '/users',usersRoutes)
+app.use('/products',productsRoutes)
 app.listen(port,()=>{
     console.log(`server is running on port ${port}`)
-    
-    console.log('http://localhost:' +port)
 })
