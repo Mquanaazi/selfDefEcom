@@ -6,61 +6,34 @@ import "vue3-toastify/dist/index.css"
 import router from '@/router';
 import { useCookies } from "vue-cookies";
 // import { EPSILON } from 'core-js/core/number';
-axios.defaults.withCredentials=true
 axios.defaults.headers=$cookies.get("token")
-
+const apiURL = "https://selfdefecom.onrender.com/"
 
 export default createStore({
   state: {
-    products:null,
-    users:null
-  },
-  getters: {
+    products: null,
+    users: null,
   },
   mutations: {
-    setProducts(state,payload){
-    state.products=payload
+    setProducts(state, payload) {
+      state.products = payload;
     },
-    setUsers(state,payload){
-      state.users=payload
-    }
-
+    setUsers(state, payload) {
+      state.users = payload;
+    },
   },
   actions: {
-    async addUser({commit},info){
-      let data=await axios.post("http://localhost:2026/users",info)
-      toast("Hello! signed in successfully!", {
-        "theme": "auto",
-        "type": "default",
-        "position": "top-center",
-        "dangerouslyHTMLString": true
-      })
+    async getProducts({ commit }) {
+      try {
+        let results = await (await axios.get(`${apiURL}products`)).data;
+        commit("setProducts", results);
+      } catch (error) {
+        console.error("Error fetching products:", error);
+        toast.error("Failed to fetch products. Please try again later.");
+      }
     },
-   async loginUser({commit},info){
-      let {data}= await axios.post("http://localhost:2026/users/login",info)
-      toast("welcome back!", {
-        "theme": "auto",
-        "type": "default",
-        "position": "top-center",
-        "dangerouslyHTMLString": true
-      })
-      console.log(data);
-      $cookies.set("token",data.token)
-     await router.push('/')
-     location.reload()
+    addToCart({ commit }, product) {
+      // Logic to add product to the cart
+    },
   },
-  async getProducts({ commit }) {
-    try {
-      let { data } = await axios.get("http://localhost:2026/products");
-      console.log(data);
-      commit("setProducts", data);
-    } catch (error) {
-      console.error("Error fetching products:", error);
-      toast.error("Failed to fetch products. Please try again later.");
-    }
-  }
-  
-},
-modules: {
-}
-})
+});

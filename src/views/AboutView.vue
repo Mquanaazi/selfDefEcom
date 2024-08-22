@@ -157,7 +157,7 @@ export default {
 
 .btn1:hover {
   color: #1abc9c;
-  background-color: #ecf0f1;
+  background-color: #2c3e50;
   transform: scale(1.05);
 }
 

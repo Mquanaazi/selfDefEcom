@@ -8,11 +8,13 @@
   import NavBar from './components/NavbarComp.vue';
   import FooterComp from './components/FooterComp.vue';
   import SpinnerComp from './components/SpinnerComp1.vue';
+  import CardComp from './components/CardComp.vue';
 export default {
   components: {
     NavBar,
     FooterComp,
     SpinnerComp,
+    CardComp,
   }
 }
 </script>
