@@ -1,5 +1,5 @@
 <template>
-  <section class="typcn typcn-heart-full-outline">
+  <section id="contact" class="about-me">
     <!-- Background Image Container -->
     <div class="background-container">
       <img src="https://zakariyasalie.github.io/allimages/images/background1.png" alt="Background" loading="lazy" class="background-image">
@@ -133,17 +133,20 @@ export default {
 }
 
 .about-me-content {
-  margin-bottom: 1rem;
+  /* margin-bottom: 1rem; */
   color: #1abc9c; /* Light text color */
   transition: color 0.3s; /* Smooth color transition */
+  display: block;
+  text-align: center;
+  margin-bottom: 10px;
 }
 
 .form-group {
-  margin-bottom: 1.5rem;
+  position: relative;
 }
 
 .form-control {
-  width: 100%;
+  width: 90%;
   padding: 0.75rem 1rem;
   font-size: 1rem;
   border: 1px solid #ccc;
