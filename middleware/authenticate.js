@@ -5,26 +5,27 @@ import {config} from "dotenv"
 config()
 
 
-const  checkUser= async(req,res,next)=>{
-    const {emailAdd,userPass}=req.body;
-    let hasheduserPass = (await getUserEmailDb(emailAdd)).userPass
-    // let hasheduserPass = await getUserEmailDb(emailAdd)
-    console.log(userPass);
-    console.log(hasheduserPass);
-    
-    let result = await compare(userPass,hasheduserPass)
-    if(result==true){
-        let token = jwt.sign({emailAdd:emailAdd},process.env.SECRET_KEY,{expiresIn:'1h'})
-        req.body.token = token
-        console.log(token);
-        
-        next()
-            return 
-        }else
-        res.send('incorrect Password')
-   
+const checkUser = async (req, res, next) => {
+    const { emailAdd, userPass } = req.body;
+    const user = await getUserEmailDb(emailAdd);
+  
+    if (!user) {
+      return res.send('Email address not found');
+    }
+  
+    const hasheduserPass = user.userPass;
+    const result = await compare(userPass, hasheduserPass);
+  
+    if (result === true) {
+      const token = jwt.sign({ emailAdd: emailAdd }, process.env.SECRET_KEY, { expiresIn: '1h' });
+      req.body.token = token;
+      console.log(token);
+      next();
+    } else {
+      res.send('Incorrect email or password');
+    }
+  };
 
-}
 // const verifyAToken = (req,res,next)=>{
 //     let {cookie} = req.headers;
 //     // console.log(req.headers);

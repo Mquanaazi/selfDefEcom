@@ -15,5 +15,5 @@ app.use(express.static('public'))
 app.listen(port,()=>{
     console.log(`server is running on port ${port}`)
     
-    // console.log('http://localhost:' +port)
+    console.log('http://localhost:' +port)
 })
