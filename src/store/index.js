@@ -9,6 +9,7 @@ import { useCookies } from "vue-cookies";
 axios.defaults.withCredentials=true
 axios.defaults.headers=$cookies.get("token")
 
+
 export default createStore({
   state: {
     products:null,
@@ -48,11 +49,17 @@ export default createStore({
      await router.push('/')
      location.reload()
   },
-  async getProducts({commit}){
-    let {data}=await axios.get("http://localhost:2026")
-    console.log(data);
-    commit("setProducts",data)
+  async getProducts({ commit }) {
+    try {
+      let { data } = await axios.get("http://localhost:2026/products");
+      console.log(data);
+      commit("setProducts", data);
+    } catch (error) {
+      console.error("Error fetching products:", error);
+      toast.error("Failed to fetch products. Please try again later.");
+    }
   }
+  
 },
 modules: {
 }

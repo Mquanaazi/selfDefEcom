@@ -1,14 +1,13 @@
 <template>
-  <SpinnerComp/>
   <router-view/>
   <FooterComp/>
   <NavBar/>
   <router-link to="/products">Products</router-link>
 </template>
 <script>
-  import NavBar from './components/NavBar.vue';
+  import NavBar from './components/NavbarComp.vue';
   import FooterComp from './components/FooterComp.vue';
-  import SpinnerComp from './components/SpinnerComp.vue';
+  import SpinnerComp from './components/SpinnerComp1.vue';
 export default {
   components: {
     NavBar,

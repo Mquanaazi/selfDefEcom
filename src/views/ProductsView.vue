@@ -15,6 +15,7 @@
         >
           Purchase
         </button>
+        <button @click="fetchProducts()">get products</button>
       </div>
     </div>
   </section>
@@ -32,19 +33,17 @@ export default {
     getProducts(){
       this.$store.dispatch('getProducts')
     },
-    // purchaseProduct(product) {
-    //   if (this.$cookies.get('token')) {
-    //     this.$store.dispatch('addToCart', product.productID);
-    //     alert(`You have purchased ${product.prodName}!`);
-    //   } else {
-    //     alert('You need to log in to make a purchase.');
-    //   }
-    // }
+    purchaseProduct(product) {
+      if (this.$cookies.get('token')) {
+        this.$store.dispatch('addToCart', product.productID);
+        alert(`You have purchased ${product.prodName}!`);
+      } else {
+        alert('You need to log in to make a purchase.');
+      }
+    }
   },
   mounted() {
-    this.getProducts()
-    // Fetch products from Vuex store
-    // this.$store.dispatch('getProducts');
+    this.getProducts();
   }
 };
 </script>
