@@ -46,7 +46,7 @@
 
 <script>
 export default {
-  name: 'Home',
+  name: 'HomeView',
   data() {
     return {
       isNavOpen: false

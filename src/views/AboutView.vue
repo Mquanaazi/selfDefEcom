@@ -46,7 +46,7 @@
           <div class="content-box">
             <div class="d-flex flex-column about-me-actions">
               <a class="btn1 about-me-contact-btn mb-4" href="/products" id="link1button">View Products</a>
-              <a class="btn1 about-me-download-btn" href="#contact">Contact Us</a>
+              <a class="btn1 about-me-download-btn" href="/contact">Contact Us</a>
             </div>
           </div>
         </div>

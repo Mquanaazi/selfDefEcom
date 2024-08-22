@@ -24,13 +24,13 @@
               </tr>
             </thead>
             <tbody>
-              <tr v-for="user in users" :key="user.id">
-                <td>{{ user.id }}</td>
-                <td>{{ user.name }}</td>
-                <td>{{ user.email }}</td>
+              <tr v-for="users in users" :key="users.userID">
+                <td>{{ users.userID }}</td>
+                <td>{{ users.firstName }}</td>
+                <td>{{ users.emailAdd }}</td>
                 <td>
-                  <button @click="editUser(user)" class="btn btn-primary btn-sm">Edit</button>
-                  <button @click="deleteUser(user.id)" class="btn btn-danger btn-sm">Delete</button>
+                  <button @click="editUser(users)" class="btn btn-primary btn-sm">Edit</button>
+                  <button @click="deleteUser(users.userID)" class="btn btn-danger btn-sm">Delete</button>
                 </td>
               </tr>
             </tbody>
@@ -58,13 +58,13 @@
               </tr>
             </thead>
             <tbody>
-              <tr v-for="product in products" :key="product.id">
-                <td>{{ product.id }}</td>
-                <td>{{ product.name }}</td>
-                <td>{{ product.price }}</td>
+              <tr v-for="products in products" :key="products.productID">
+                <td>{{ products.productID }}</td>
+                <td>{{ products.prodName }}</td>
+                <td>{{ products.amount }}</td>
                 <td>
-                  <button @click="editProduct(product)" class="btn btn-primary btn-sm">Edit</button>
-                  <button @click="deleteProduct(product.id)" class="btn btn-danger btn-sm">Delete</button>
+                  <button @click="editProduct(products)" class="btn btn-primary btn-sm">Edit</button>
+                  <button @click="deleteProduct(products.productID)" class="btn btn-danger btn-sm">Delete</button>
                 </td>
               </tr>
             </tbody>
@@ -92,32 +92,32 @@ export default {
     };
   },
   methods: {
-    createUser() {
-      // Logic to create a new user
-    },
-    editUser(user) {
-      // Logic to edit an existing user
-    },
-    deleteUser(userId) {
-      // Logic to delete a user
-    },
-    deleteAllUsers() {
-      // Logic to delete all users
-      alert('All users deleted!');
-    },
-    createProduct() {
-      // Logic to create a new product
-    },
-    editProduct(product) {
-      // Logic to edit an existing product
-    },
-    deleteProduct(productId) {
-      // Logic to delete a product
-    },
-    deleteAllProducts() {
-      // Logic to delete all products
-      alert('All products deleted!');
-    }
+    // createUser() {
+    //   // Logic to create a new user
+    // },
+    // editUser(user) {
+    //   // Logic to edit an existing user
+    // },
+    // deleteUser(userId) {
+    //   // Logic to delete a user
+    // },
+    // deleteAllUsers() {
+    //   // Logic to delete all users
+    //   alert('All users deleted!');
+    // },
+    // createProduct() {
+    //   // Logic to create a new product
+    // },
+    // editProduct(product) {
+    //   // Logic to edit an existing product
+    // },
+    // deleteProduct(productId) {
+    //   // Logic to delete a product
+    // },
+    // deleteAllProducts() {
+    //   // Logic to delete all products
+    //   alert('All products deleted!');
+    // }
   },
   mounted() {
     // Fetch the users and products from your store or API
