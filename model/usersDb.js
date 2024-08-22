@@ -8,6 +8,10 @@ const getUserDb = async(userID)=>{
     let [[data]] = await pool.query('SELECT * FROM bfxprsrsz3hdrcp7b87q.users WHERE userID = ?',[userID])
     return data
 }
+const getUserEmailDb = async (emailAdd)=>{
+    let [[data]] = await pool.query('SELECT * FROM bfxprsrsz3hdrcp7b87q.users WHERE emailAdd = ?',[emailAdd])
+    return data
+}
 // console.log(await getUserDb(1))
 
 const insertUserDb = async(firstName,lastName,userAge,Gender,userRole,emailAdd,userProfile,userPass)=>{
@@ -32,4 +36,4 @@ const updateUserDb = async(firstName,lastName,userAge,Gender,userRole,emailAdd,u
         [firstName,lastName,userAge,Gender,userRole,emailAdd,userProfile,userPass,userID])
     return data
 }
-export {getUsersDb,getUserDb,insertUserDb,deleteUserDb,updateUserDb}
+export {getUsersDb,getUserDb,insertUserDb,deleteUserDb,updateUserDb, getUserEmailDb}
