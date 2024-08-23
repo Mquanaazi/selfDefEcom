@@ -1,6 +1,5 @@
 <template>
   <div class="home">
-
     <section class="hero">
       <div class="content-box">
         <div class="hero-content">
@@ -19,7 +18,7 @@
         <h2 class="title">Problems I can help with</h2>
         <div class="divider"></div>
       </section>
-  
+
       <!-- Grid Section -->
       <section class="grid-section">
         <div class="grid-container">
@@ -191,7 +190,7 @@ nav {
 /* Grid Section */
 .grid-section {
   padding: 50px 20px;
-  background-color: #f5f5f5;
+  background: url('https://zakariyasalie.github.io/allimages/images/background1.png') no-repeat center center/cover;
 }
 
 .grid-container {
@@ -203,27 +202,20 @@ nav {
 
 .grid-item {
   position: relative;
-  background: white;
+  background: rgba(44, 62, 80, 0.9);
+  border: 2px solid #1abc9c;
   border-radius: 10px;
   overflow: hidden;
+  padding: 1rem;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  text-align: center; /* Ensure text is centered */
-  padding: 20px; /* Added padding for spacing */
+  transition: transform 0.3s, border-color 0.3s, box-shadow 0.3s;
+  text-align: center;
 }
 
-.grid-item h3 {
-  margin-top: 15px;
-  color: #111;
-  font-size: 1.5rem;
-  font-weight: bold;
-}
-
-.grid-item p {
-  margin-top: 10px;
-  color: #666;
-  font-size: 1rem;
-  line-height: 1.5;
+.grid-item:hover {
+  transform: scale(1.05);
+  border-color: #1abc9c;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
 }
 
 .grid-item img {
@@ -232,6 +224,20 @@ nav {
   height: auto;
   object-fit: cover;
   transition: transform 0.3s ease;
+}
+
+.grid-item h3 {
+  margin-top: 15px;
+  color: #ecf0f1;
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.grid-item p {
+  margin-top: 10px;
+  color: #ecf0f1;
+  font-size: 1rem;
+  line-height: 1.5;
 }
 
 .grid-item:hover img {
@@ -243,6 +249,7 @@ nav {
   position: relative;
   margin-top: 15px;
 }
+
 .content-box {
   border: 2px solid #1abc9c;
   background-color: rgba(44, 62, 80, 0.9);
@@ -257,5 +264,17 @@ nav {
   border-color: #1abc9c;
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
   color: #1abc9c;
+}
+
+@media (max-width: 768px) {
+  .grid-container {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 576px) {
+  .grid-container {
+    grid-template-columns: 1fr;
+  }
 }
 </style>

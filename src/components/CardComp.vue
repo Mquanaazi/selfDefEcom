@@ -12,30 +12,7 @@
 <script>
 export default {
   props: {
-    title: {
-      type: String,
-      required: true
-    },
-    description: {
-      type: String,
-      required: true
-    },
-    imageUrl: {
-      type: String,
-      required: true
-    },
-    buttonText: {
-      type: String,
-      default: 'Click Me'
-    },
-    showButton: {
-      type: Boolean,
-      default: true
-    },
-    buttonAction: {
-      type: Function,
-      default: () => {}
-    }
+    // Optional props for card header, body, etc.
   }
 }
 </script>
@@ -46,7 +23,7 @@ export default {
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   padding: 20px;
-  background-color:  #2c3e50; /* Matches the background of the About page */
+  background-color: #2c3e50; /* Matches the background of the About page */
   margin: 20px 0;
   color: white;
 }
@@ -63,7 +40,7 @@ export default {
 h5.card-title {
   font-size: 24px;
   font-weight: bold;
-  color:white;
+  color: white;
 }
 
 p.lead {
@@ -76,14 +53,15 @@ p.lead {
 }
 
 button.btn-success {
-  background-color:#1abc9c;
+  background-color: #1abc9c;
   border-color: #1abc9c;
 }
 
 button.btn-dark {
-  background-color:  #2c3e50;
-  border-color:  #2c3e50;
+  background-color: #2c3e50;
+  border-color: #2c3e50;
 }
+
 .card:hover {
   color: #1abc9c;
   background-color: #2c3e50;

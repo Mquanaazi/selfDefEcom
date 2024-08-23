@@ -10,259 +10,388 @@
       <div class="admin-header content-box">
         <h1 class="admin-title">Admin Dashboard</h1>
       </div>
-      <div class="admin-content">
-        <!-- User Management Section -->
-        <div class="admin-section content-box">
-          <h2 class="admin-subtitle">User Management</h2>
-          <table class="table table-striped">
-            <thead>
-              <tr>
-                <th>ID</th>
-                <th>Name</th>
-                <th>Email</th>
-                <th>Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr v-for="users in users" :key="users.userID">
-                <td>{{ users.userID }}</td>
-                <td>{{ users.firstName }}</td>
-                <td>{{ users.emailAdd }}</td>
-                <td>
-                  <button @click="editUser(users)" class="btn btn-primary btn-sm">Edit</button>
-                  <button @click="deleteUser(users.userID)" class="btn btn-danger btn-sm">Delete</button>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-          <div class="action-buttons">
-            <button @click="createUser" class="btn1">
-              <i class="fas fa-plus"></i> Add New User
-            </button>
-            <button @click="deleteAllUsers" class="btn1 delete-button">
-              <i class="fas fa-trash-alt"></i> Delete User
-            </button>
-          </div>
-        </div>
 
-        <!-- Product Management Section -->
-        <div class="admin-section content-box">
-          <h2 class="admin-subtitle">Product Management</h2>
-          <table class="table table-striped">
-            <thead>
-              <tr>
-                <th>ID</th>
-                <th>Name</th>
-                <th>Price</th>
-                <th>Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr v-for="products in products" :key="products.productID">
-                <td>{{ products.productID }}</td>
-                <td>{{ products.prodName }}</td>
-                <td>{{ products.amount }}</td>
-                <td>
-                  <button @click="editProduct(products)" class="btn btn-primary btn-sm">Edit</button>
-                  <button @click="deleteProduct(products.productID)" class="btn btn-danger btn-sm">Delete</button>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-          <div class="action-buttons">
-            <button @click="createProduct" class="btn1">
-              <i class="fas fa-plus"></i> Add New Product
-            </button>
-            <button @click="deleteAllProducts" class="btn1 delete-button">
-              <i class="fas fa-trash-alt"></i> Delete Product
-            </button>
-          </div>
+      <!-- User Management Section -->
+      <div class="admin-section content-box">
+        <h2 class="admin-subtitle">User Management</h2>
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="user in users" :key="user.userID">
+              <td>{{ user.userID }}</td>
+              <td>{{ user.firstName }} {{ user.lastName }}</td>
+              <td>{{ user.emailAdd }}</td>
+              <td>
+                <button @click="updateUser(user)" class="btn btn-primary btn-sm">Edit</button>
+                <button @click="deleteUser(user.userID)" class="btn btn-danger btn-sm">Delete</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="action-buttons">
+          <button @click="openUserModal" class="btn1">
+            <i class="fas fa-plus"></i> Add New User
+          </button>
         </div>
+      </div>
+
+      <!-- Product Management Section -->
+      <div class="admin-section content-box">
+        <h2 class="admin-subtitle">Product Management</h2>
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Name</th>
+              <th>Price</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="product in products" :key="product.productID">
+              <td>{{ product.productID }}</td>
+              <td>{{ product.prodName }}</td>
+              <td>${{ product.amount }}</td>
+              <td>
+                <button @click="openEditProductModal(product)" class="btn btn-primary btn-sm">Edit</button>
+                <button @click="deleteProduct(product.productID)" class="btn btn-danger btn-sm">Delete</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="action-buttons">
+          <button @click="openProductModal" class="btn1">
+            <i class="fas fa-plus"></i> Add New Product
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal for Adding New User -->
+    <div v-if="showUserModal" class="modal-overlay">
+      <div class="modal-content">
+        <h2>Add New User</h2>
+        <form @submit.prevent="submitUser">
+          <div class="form-group">
+            <label for="userFirstName">First Name</label>
+            <input v-model="createUser.firstName" type="text" id="userFirstName" required>
+          </div>
+          <div class="form-group">
+            <label for="userLastName">Last Name</label>
+            <input v-model="createUser.lastName" type="text" id="userLastName" required>
+          </div>
+          <div class="form-group">
+            <label for="userEmail">Email</label>
+            <input v-model="createUser.emailAdd" type="email" id="userEmail" required>
+          </div>
+          <div class="form-group">
+            <label for="userPassword">Password</label>
+            <input v-model="createUser.password" type="password" id="userPassword" required>
+          </div>
+          <button type="submit" class="btn btn-primary">Submit</button>
+          <button @click="closeUserModal" type="button" class="btn btn-secondary">Cancel</button>
+        </form>
+      </div>
+    </div>
+
+    <!-- Modal for Editing Product -->
+    <div v-if="showEditProductModal" class="modal-overlay">
+      <div class="modal-content">
+        <h2>Edit Product</h2>
+        <form @submit.prevent="updateProduct">
+          <div class="form-group">
+            <label for="editProductName">Product Name</label>
+            <input v-model="productToEdit.prodName" type="text" id="editProductName" required>
+          </div>
+          <div class="form-group">
+            <label for="editProductQuantity">Quantity</label>
+            <input v-model="productToEdit.quantity" type="number" id="editProductQuantity" required>
+          </div>
+          <div class="form-group">
+            <label for="editProductAmount">Amount</label>
+            <input v-model="productToEdit.amount" type="number" id="editProductAmount" required>
+          </div>
+          <div class="form-group">
+            <label for="editProductCategory">Category</label>
+            <input v-model="productToEdit.Category" type="text" id="editProductCategory" required>
+          </div>
+          <div class="form-group">
+            <label for="editProductUrl">Product URL</label>
+            <input v-model="productToEdit.prodUrl" type="text" id="editProductUrl" required>
+          </div>
+          <button type="submit" class="btn btn-primary">Update</button>
+          <button @click="closeEditProductModal" type="button" class="btn btn-secondary">Cancel</button>
+        </form>
       </div>
     </div>
   </section>
 </template>
 
 <script>
+import { computed, reactive, ref, onMounted } from 'vue';
+import { useStore } from 'vuex';
+import { toast } from "vue3-toastify";
+
 export default {
-  data() {
-    return {
-      users: [],  // Array to hold user data
-      products: []  // Array to hold product data
+  setup() {
+    const store = useStore();
+    const products = computed(() => store.state.products);
+    const users = computed(() => store.state.users);
+
+    const showProductModal = ref(false);
+    const showEditProductModal = ref(false);
+    const showUserModal = ref(false);
+    const showEditUserModal = ref(false);  // Add this line for user edit modal
+
+    const newProduct = reactive({
+      prodName: '',
+      amount: '',
+      quantity: '',
+      Category: '',
+      prodUrl: ''
+    });
+
+    const productToEdit = reactive({
+      prodName: '',
+      amount: '',
+      quantity: '',
+      Category: '',
+      prodUrl: ''
+    });
+
+    const userToEdit = reactive({
+      userID: '',
+      firstName: '',
+      lastName: '',
+      emailAdd: '',
+      password: ''  // Add password if you want to allow updates
+    });
+
+    const createUser = reactive({
+      firstName: '',
+      lastName: '',
+      emailAdd: '',
+      password: ''
+    });
+
+    onMounted(async () => {
+      await store.dispatch('getProducts');
+      await store.dispatch('getUsers');
+    });
+
+    const openProductModal = () => {
+      showProductModal.value = true;
     };
-  },
-  methods: {
-    // createUser() {
-    //   // Logic to create a new user
-    // },
-    // editUser(user) {
-    //   // Logic to edit an existing user
-    // },
-    // deleteUser(userId) {
-    //   // Logic to delete a user
-    // },
-    // deleteAllUsers() {
-    //   // Logic to delete all users
-    //   alert('All users deleted!');
-    // },
-    // createProduct() {
-    //   // Logic to create a new product
-    // },
-    // editProduct(product) {
-    //   // Logic to edit an existing product
-    // },
-    // deleteProduct(productId) {
-    //   // Logic to delete a product
-    // },
-    // deleteAllProducts() {
-    //   // Logic to delete all products
-    //   alert('All products deleted!');
-    // }
-  },
-  mounted() {
-    // Fetch the users and products from your store or API
-    this.users = this.$store.state.users;
-    this.products = this.$store.state.products;
+
+    const closeProductModal = () => {
+      showProductModal.value = false;
+      resetProductForm();
+    };
+
+    const openEditProductModal = (product) => {
+      Object.assign(productToEdit, product);
+      showEditProductModal.value = true;
+    };
+
+    const closeEditProductModal = () => {
+      showEditProductModal.value = false;
+    };
+
+    const openUserModal = () => {
+      showUserModal.value = true;
+    };
+
+    const closeUserModal = () => {
+      showUserModal.value = false;
+      resetUserForm();
+    };
+
+    const openEditUserModal = (user) => {  // Function to open the edit user modal
+      Object.assign(userToEdit, user);
+      showEditUserModal.value = true;
+    };
+
+    const closeEditUserModal = () => {
+      showEditUserModal.value = false;
+    };
+
+    const resetProductForm = () => {
+      newProduct.prodName = '';
+      newProduct.amount = '';
+      newProduct.quantity = '';
+      newProduct.Category = '';
+      newProduct.prodUrl = '';
+    };
+
+    const resetUserForm = () => {
+      createUser.firstName = '';
+      createUser.lastName = '';
+      createUser.emailAdd = '';
+      createUser.password = '';
+    };
+
+    const submitProduct = async () => {
+      try {
+        await store.dispatch('createProduct', newProduct);
+        toast.success('Product created successfully!');
+        closeProductModal();
+      } catch (error) {
+        toast.error('Failed to create product.');
+        console.error(error);
+      }
+    };
+
+    const updateProduct = async () => {
+      try {
+        await store.dispatch('updateProduct', productToEdit);
+        toast.success('Product updated successfully!');
+        closeEditProductModal();
+      } catch (error) {
+        toast.error('Failed to update product.');
+        console.error(error);
+      }
+    };
+
+    const submitUser = async () => {
+      try {
+        await store.dispatch('createUser', createUser);
+        toast.success('User created successfully!');
+        closeUserModal();
+      } catch (error) {
+        toast.error('Failed to create user.');
+        console.error(error);
+      }
+    };
+
+    const updateUser = async () => {  // Add this function to handle user updates
+      try {
+        await store.dispatch('updateUser', userToEdit);
+        toast.success('User updated successfully!');
+        closeEditUserModal();
+      } catch (error) {
+        toast.error('Failed to update user.');
+        console.error(error);
+      }
+    };
+
+    const deleteUser = async (userId) => {
+      try {
+        await store.dispatch('deleteUser', userId);
+        toast.success('User deleted successfully!');
+      } catch (error) {
+        toast.error('Failed to delete user.');
+        console.error(error);
+      }
+    };
+
+    return {
+      products,
+      users,
+      showProductModal,
+      showEditProductModal,
+      showUserModal,
+      showEditUserModal,  // Add this line
+      newProduct,
+      productToEdit,
+      userToEdit,  // Add this line
+      createUser,
+      openProductModal,
+      closeProductModal,
+      openEditProductModal,
+      closeEditProductModal,
+      openUserModal,
+      closeUserModal,
+      openEditUserModal,  // Add this line
+      closeEditUserModal,  // Add this line
+      submitProduct,
+      updateProduct,
+      submitUser,
+      updateUser,  // Add this line
+      deleteUser,
+    };
   }
 };
 </script>
 
 <style scoped>
+/* Add your styles here */
 .admin-section {
-  position: relative;
-  text-align: center;
-  padding: 5rem;
-  color: #1abc9c; /* Text color */
+  margin: 20px;
 }
-
 .background-container {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: -1;
+  position: relative;
 }
-
 .background-image {
   width: 100%;
-  height: 100%;
-  object-fit: cover;
-  filter: blur(8px);
-  -webkit-filter: blur(8px); /* For Safari */
+  height: auto;
 }
-
 .container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 2rem;
+  margin-top: 20px;
 }
-
-.content-box {
-  border: 2px solid #2c3e50; /* Border style */
-  background-color: rgba(44, 62, 80, 0.9); /* Background similar to navbar */
-  padding: 1rem;
-  margin-bottom: 1rem;
-  transition: transform 0.3s, border-color 0.3s, box-shadow 0.3s; /* Smooth transitions */
+.admin-header {
+  background: #f8f9fa;
+  padding: 10px;
+  border-radius: 5px;
 }
-
-.content-box:hover {
-  transform: scale(1.05); /* Slightly increase size on hover */
-  border-color: #1abc9c; /* Light green border color on hover */
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3); /* Box shadow on hover */
-}
-
 .admin-title {
-  color: #1abc9c; /* Light text color */
+  margin: 0;
 }
-
 .admin-subtitle {
-  color: #1abc9c; /* Light text color */
+  margin-top: 0;
 }
-
+.table {
+  width: 100%;
+  margin-top: 20px;
+}
+.table th, .table td {
+  text-align: center;
+}
+.action-buttons {
+  margin-top: 10px;
+}
 .btn1 {
-  display: inline-block;
-  padding: 0.5rem 1rem;
-  border: 2px solid #2c3e50; /* Border style */
-  color: #1abc9c; /* Text color */
-  text-decoration: none;
-  font-weight: bold;
-  border-radius: 4px;
-  position: relative; /* Ensure the relative positioning for the pseudo-element */
-  overflow: hidden; /* Hide overflow from typing animation */
-  transition: color 0.3s, background-color 0.3s, transform 0.3s; /* Smooth transitions */
-  margin-right: 10px; /* Space between buttons */
-  border-color: #1abc9c;
+  margin-right: 10px;
 }
-
 .delete-button {
-  border-color: #1abc9c; /* Red border color */
+  background: #dc3545;
+  color: white;
 }
-
-.delete-button:hover {
-  background-color: #1abc9c; /* Red background color on hover */
-  color: #ecf0f1; /* Light text color on hover */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
-
-.btn1:hover {
-  color: #1abc9c; /* Light green text color on hover */
-  background-color: #ecf0f1; /* Light background color on hover */
-  transform: scale(1.05); /* Slightly increase size on hover */
+.modal-content {
+  background: white;
+  padding: 20px;
+  border-radius: 5px;
+  width: 80%;
+  max-width: 500px;
 }
-
-@media (max-width: 768px) {
-  .admin-section {
-    padding: 3rem 1rem; /* Adjust padding */
-  }
-
-  .container {
-    padding: 1rem;
-  }
-
-  .content-box {
-    padding: 0.75rem;
-  }
-
-  .admin-title {
-    font-size: 1.5rem; /* Adjust font size */
-    padding: 0.5rem;
-  }
-
-  .admin-subtitle {
-    font-size: 0.875rem; /* Adjust font size */
-  }
-
-  .btn1 {
-    padding: 0.5rem 1rem; /* Adjust padding */
-    font-size: 0.875rem; /* Adjust font size */
-  }
+.form-group {
+  margin-bottom: 15px;
 }
-
-@media (max-width: 576px) {
-  .admin-section {
-    padding: 2rem 1rem; /* Adjust padding */
-  }
-
-  .container {
-    padding: 0.5rem;
-  }
-
-  .content-box {
-    padding: 0.5rem;
-  }
-
-  .admin-title {
-    font-size: 1.25rem; /* Adjust font size */
-    padding: 0.25rem;
-  }
-
-  .admin-subtitle {
-    font-size: 0.75rem; /* Adjust font size */
-  }
-
-  .btn1 {
-    padding: 0.5rem; /* Adjust padding */
-    font-size: 0.75rem; /* Adjust font size */
-  }
+.form-group label {
+  display: block;
+  margin-bottom: 5px;
+}
+.form-group input {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
 }
 </style>
