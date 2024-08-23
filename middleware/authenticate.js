@@ -19,10 +19,11 @@ const checkUser = async (req, res, next) => {
     if (result === true) {
       const token = jwt.sign({ emailAdd: emailAdd }, process.env.SECRET_KEY, { expiresIn: '1h' });
       req.body.token = token;
+      
       console.log(token);
       next();
     } else {
-      res.send('Incorrect email or password');
+      res.send('Incorrect password');
     }
   };
 

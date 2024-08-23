@@ -76,7 +76,7 @@ const updateUser=async (req,res) => {
     }
 }   
 const loginUser= (req,res)=>{
-    res.json({message:"Signed in successfully!"})
+    res.json({message:"Signed in successfully!",token:req.body.token})
     
 }
 

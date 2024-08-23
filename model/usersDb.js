@@ -6,10 +6,17 @@ const getUsersDb = async()=>{
 }
 const getUserDb = async(userID)=>{
     let [[data]] = await pool.query('SELECT * FROM bfxprsrsz3hdrcp7b87q.users WHERE userID = ?',[userID])
+    
+    if (!data) {
+        return 'user not found';
+      }
     return data
 }
 const getUserEmailDb = async (emailAdd)=>{
     let [[data]] = await pool.query('SELECT * FROM bfxprsrsz3hdrcp7b87q.users WHERE emailAdd = ?',[emailAdd])
+    // if (!data) {
+    //     return 'user mail not found';
+    //   }
     return data
 }
 // console.log(await getUserDb(1))

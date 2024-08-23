@@ -26,4 +26,5 @@ app.use( '/users',usersRoutes)
 app.use('/products',productsRoutes)
 app.listen(port,()=>{
     console.log(`server is running on port ${port}`)
+    console.log("http://localhost:"+port)
 })

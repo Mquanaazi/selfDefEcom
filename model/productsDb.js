@@ -15,10 +15,15 @@ const getProductsDb = async()=>{
     let [data] = await pool.query('SELECT * FROM bfxprsrsz3hdrcp7b87q.products')
     return data
 }
-const getProductDb = async(productID)=>{
-    let [[data]] = await pool.query('SELECT* FROM bfxprsrsz3hdrcp7b87q.products WHERE productID = ?',[productID])
-    return data
-}
+const getProductDb = async (productID) => {
+    let [[data]] = await pool.query('SELECT* FROM bfxprsrsz3hdrcp7b87q.products WHERE productID = ?', [productID]);
+  
+    if (!data) {
+      return 'Product not found';
+    }
+  
+    return data;
+  };
 const insertProductDb = async(prodName,quantity,amount,Category,prodUrl)=>{
     await pool.query(`
         INSERT INTO bfxprsrsz3hdrcp7b87q.products(prodName,quantity,amount,Category,prodUrl) VALUES(?,?,?,?,?)

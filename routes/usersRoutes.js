@@ -5,7 +5,7 @@ import {checkUser} from '../middleware/authenticate.js'
 const router=express.Router()
 router.post('/login',checkUser,loginUser)
 router.get('/',fetchUsers)
-router.post('/',insertUser)
+router.post('/signUp',insertUser)
 
 router
     .route('/:userID')
