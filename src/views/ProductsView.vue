@@ -1,25 +1,36 @@
 <template>
-  <div class="container">
-    <div class="row">
-      <h2 class="display-2">Products</h2>
+  <div class="container mt-4">
+    <h2 class="display-2 text-center mb-4">Products</h2>
+    <!-- Product Grid -->
+    <div class="row" v-if="products">
+      <!-- Use col-12 col-md-4 to create a 3-column layout on medium to larger screens -->
+      <div class="col-12 col-md-4 mb-4" v-for="product in products" :key="product.productID">
+        <CardComp>
+          <template #cardHeader>
+            <img 
+              :src="product.prodUrl" 
+              loading="lazy" 
+              class="img-fluid" 
+              style="height: 200px; width: 100%; object-fit: cover;" 
+              :alt="product.prodName" 
+            />
+          </template>
+          <template #cardBody>
+            <h5 class="card-title fw-bold">{{ product.prodName }}</h5>
+            <p class="lead">
+              <span class="text-success fw-bold">Amount</span>: ${{ product.amount }}
+            </p>
+            <div class="button-wrapper d-flex justify-content-between mt-3">
+              <router-link :to="{ name: 'product', params: { id: product.productID } }">
+                <button class="btn btn-success">View</button>
+              </router-link>
+              <button class="btn btn-dark" @click="addToCart(product)">Add to Cart</button>
+            </div>
+          </template>
+        </CardComp>
+      </div>
     </div>
-    <div class="row gap-2 justify-content-center my-2" v-if="products">
-      <CardComp v-for="product in products" :key="product.productID">
-        <template #cardHeader>
-          <img :src="product.prodUrl" loading="lazy" class="img-fluid" style="height: 200px;" :alt="product.prodName">
-        </template>
-        <template #cardBody>
-          <h5 class="card-title fw-bold">{{ product.prodName }}</h5>
-          <p class="lead"><span class="text-success fw-bold">Amount</span>: ${{ product.amount }}</p>
-          <div class="button-wrapper d-md-flex d-block justify-content-between">
-            <router-link :to="{ name: 'product', params: { id: product.productID } }">
-              <button class="btn btn-success">View</button>
-            </router-link>
-            <button class="btn btn-dark" @click="addToCart(product)">Add to Cart</button>
-          </div>
-        </template>
-      </CardComp>
-    </div>
+    <!-- Loading Spinner -->
     <div v-else>
       <SpinnerComp />
     </div>
@@ -62,37 +73,22 @@ export default {
   max-width: 1200px;
   margin: 40px auto;
   padding: 20px;
-  background-color: #2c3e50; /* Same as About page */
+  background-color: #2c3e50;
   border: 1px solid #ddd;
   border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Same shadow effect */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 .display-2 {
   font-size: 36px;
   font-weight: bold;
   margin-bottom: 20px;
-  color:  white; /* Match text color */
+  color: white;
 }
 
-.gap-2 {
-  gap: 20px;
-}
-
-.my-2 {
-  margin-top: 20px;
-  margin-bottom: 20px;
-}
-
-.card-title {
-  font-size: 24px;
-  font-weight: bold;
-  color: white; /* Match text color */
-}
-
-.lead {
+.card-title, .lead {
   font-size: 18px;
-  color:  white; /* Match text color */
+  color: white;
 }
 
 .button-wrapper {
@@ -113,5 +109,9 @@ export default {
 
 .btn {
   margin: 10px;
+}
+
+.mb-4 {
+  margin-bottom: 1.5rem;
 }
 </style>

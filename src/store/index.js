@@ -13,6 +13,8 @@ export default createStore({
   state: {
     products: null,
     users: null,
+    product: null,
+    user: null,
   },
   mutations: {
     setProducts(state, payload) {
@@ -26,14 +28,17 @@ export default createStore({
     async getProducts({ commit }) {
       try {
         let results = await (await axios.get(`${apiURL}products`)).data;
-        commit("setProducts", results);
+        
+        // Use a Set to filter out duplicate products based on `productID`
+        const uniqueProducts = Array.from(new Set(results.map(product => product.productID)))
+          .map(id => results.find(product => product.productID === id));
+  
+        commit("setProducts", uniqueProducts);
       } catch (error) {
         console.error("Error fetching products:", error);
         toast.error("Failed to fetch products. Please try again later.");
       }
     },
-    addToCart({ commit }, product) {
-      // Logic to add product to the cart
-    },
   },
+  
 });
