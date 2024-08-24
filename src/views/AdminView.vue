@@ -352,6 +352,13 @@ export default {
   z-index: 1; /* Ensure the container is above the background image */
 }
 
+/* Add the background image to grid elements */
+.admin-section .grid {
+  background-image: url('https://zakariyasalie.github.io/allimages/images/background1.png');
+  background-size: cover;
+  background-position: center;
+}
+
 /* Styling for the modals */
 .modal-overlay {
   position: fixed;

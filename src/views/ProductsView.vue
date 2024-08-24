@@ -7,10 +7,32 @@
     <!-- Main Content Container -->
     <div class="content-container mt-4">
       <h2 class="display-2 text-center mb-4">Products</h2>
+
+      <!-- Search and Sort Bar -->
+      <div class="d-flex justify-content-between mb-4">
+        <!-- Search Bar -->
+        <input 
+          type="text" 
+          v-model="searchQuery" 
+          class="form-control w-50" 
+          placeholder="Search for products..."
+          @input="filterProducts"
+        />
+        
+        <!-- Sort By Dropdown -->
+        <select class="form-select w-25" v-model="sortOption" @change="sortProducts">
+          <option value="default">Sort By</option>
+          <option value="nameAsc">Name: A to Z</option>
+          <option value="nameDesc">Name: Z to A</option>
+          <option value="priceAsc">Price: Low to High</option>
+          <option value="priceDesc">Price: High to Low</option>
+        </select>
+      </div>
+
       <!-- Product Grid -->
-      <div class="row" v-if="products">
+      <div class="row">
         <!-- Use col-12 col-md-4 to create a 3-column layout on medium to larger screens -->
-        <div class="col-12 col-md-4 mb-4" v-for="product in products" :key="product.productID">
+        <div class="col-12 col-md-4 mb-4" v-for="product in filteredProducts" :key="product.productID">
           <CardComp>
             <template #cardHeader>
               <img 
@@ -36,7 +58,7 @@
         </div>
       </div>
       <!-- Loading Spinner -->
-      <div v-else>
+      <div v-if="filteredProducts.length === 0">
         <SpinnerComp />
       </div>
     </div>
@@ -44,7 +66,7 @@
 </template>
 
 <script>
-import { computed, onMounted } from 'vue';
+import { computed, onMounted, ref, watch } from 'vue';
 import { useStore } from 'vuex';
 import CardComp from '@/components/CardComp.vue';
 import SpinnerComp from '@/components/SpinnerComp1.vue';
@@ -56,19 +78,59 @@ export default {
   },
   setup() {
     const store = useStore();
+    const searchQuery = ref('');
+    const sortOption = ref('default');
     const products = computed(() => store.state.products);
+    const filteredProducts = ref([]);
 
+    // Watch for changes in products, searchQuery, and sortOption to update filteredProducts
+    watch([products, searchQuery, sortOption], () => {
+      filterProducts();
+      sortProducts();
+    }, { deep: true });
+
+    // Fetch products on mount
     onMounted(() => {
-      store.dispatch('getProducts');
+      store.dispatch('getProducts').then(() => {
+        filteredProducts.value = [...products.value];
+      });
     });
 
+    // Method to add products to the cart
     const addToCart = (product) => {
       store.dispatch('addToCart', product);
     };
 
+    // Method to filter products based on search query
+    const filterProducts = () => {
+      const query = searchQuery.value.toLowerCase();
+      filteredProducts.value = products.value.filter(product =>
+        product.prodName.toLowerCase().includes(query)
+      );
+    };
+
+    // Method to sort products based on selected option
+    const sortProducts = () => {
+      if (filteredProducts.value.length === 0) return;
+
+      if (sortOption.value === 'nameAsc') {
+        filteredProducts.value.sort((a, b) => a.prodName.localeCompare(b.prodName));
+      } else if (sortOption.value === 'nameDesc') {
+        filteredProducts.value.sort((a, b) => b.prodName.localeCompare(a.prodName));
+      } else if (sortOption.value === 'priceAsc') {
+        filteredProducts.value.sort((a, b) => a.amount - b.amount);
+      } else if (sortOption.value === 'priceDesc') {
+        filteredProducts.value.sort((a, b) => b.amount - a.amount);
+      }
+    };
+
     return {
-      products,
+      searchQuery,
+      sortOption,
+      filteredProducts,
       addToCart,
+      filterProducts,
+      sortProducts,
     };
   },
 };
