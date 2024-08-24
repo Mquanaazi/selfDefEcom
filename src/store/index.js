@@ -103,7 +103,7 @@ export default createStore({
     },
     async createUser({ commit }, createUser) {
       try {
-        const response = await axios.post(`${apiURL}users/signUp`, createUser);
+        const response = await axios.post(`${apiURL}users/`, createUser);
         commit('addUser', response.data);
         toast.success("User created successfully!");
       } catch (error) {

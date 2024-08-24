@@ -29,7 +29,7 @@
               <td>{{ user.firstName }} {{ user.lastName }}</td>
               <td>{{ user.emailAdd }}</td>
               <td>
-                <button @click="updateUser(user)" class="btn btn-primary btn-sm">Edit</button>
+                <button @click="openEditUserModal(user)" class="btn btn-primary btn-sm">Edit</button>
                 <button @click="deleteUser(user.userID)" class="btn btn-danger btn-sm">Delete</button>
               </td>
             </tr>
@@ -74,29 +74,33 @@
       </div>
     </div>
 
-    <!-- Modal for Adding New User -->
-    <div v-if="showUserModal" class="modal-overlay">
+    <!-- Modal for Adding New Product -->
+    <div v-if="showProductModal" class="modal-overlay">
       <div class="modal-content">
-        <h2>Add New User</h2>
-        <form @submit.prevent="submitUser">
+        <h2>Add New Product</h2>
+        <form @submit.prevent="submitProduct">
           <div class="form-group">
-            <label for="userFirstName">First Name</label>
-            <input v-model="createUser.firstName" type="text" id="userFirstName" required>
+            <label for="productName">Product Name</label>
+            <input v-model="newProduct.prodName" type="text" id="productName" required>
           </div>
           <div class="form-group">
-            <label for="userLastName">Last Name</label>
-            <input v-model="createUser.lastName" type="text" id="userLastName" required>
+            <label for="productQuantity">Quantity</label>
+            <input v-model="newProduct.quantity" type="number" id="productQuantity" required>
           </div>
           <div class="form-group">
-            <label for="userEmail">Email</label>
-            <input v-model="createUser.emailAdd" type="email" id="userEmail" required>
+            <label for="productAmount">Amount</label>
+            <input v-model="newProduct.amount" type="number" id="productAmount" required>
           </div>
           <div class="form-group">
-            <label for="userPassword">Password</label>
-            <input v-model="createUser.password" type="password" id="userPassword" required>
+            <label for="productCategory">Category</label>
+            <input v-model="newProduct.Category" type="text" id="productCategory" required>
+          </div>
+          <div class="form-group">
+            <label for="productUrl">Product URL</label>
+            <input v-model="newProduct.prodUrl" type="text" id="productUrl" required>
           </div>
           <button type="submit" class="btn btn-primary">Submit</button>
-          <button @click="closeUserModal" type="button" class="btn btn-secondary">Cancel</button>
+          <button @click="closeProductModal" type="button" class="btn btn-secondary">Cancel</button>
         </form>
       </div>
     </div>
@@ -131,6 +135,60 @@
         </form>
       </div>
     </div>
+
+    <!-- Modal for Editing User -->
+    <div v-if="showEditUserModal" class="modal-overlay">
+      <div class="modal-content">
+        <h2>Edit User</h2>
+        <form @submit.prevent="updateUser">
+          <div class="form-group">
+            <label for="UserFirstName">First Name</label>
+            <input v-model="newUser.firstName" type="text" id="UserName" required>
+          </div>
+          <div class="form-group">
+            <label for="editUserLastName">Last Name</label>
+            <input v-model="newUser.lastName" type="text" id="UserLastName" required>
+          </div>
+          <div class="form-group">
+            <label for="editUserEmail">Email</label>
+            <input v-model="newUser.emailAdd" type="email" id="UserEmail" required>
+          </div>
+          <div class="form-group">
+            <label for="editUserPassword">Password</label>
+            <input v-model="newUser.password" type="password" id="UserPassword" required>
+          </div>
+          <button type="submit" class="btn btn-primary">Update</button>
+          <button @click="closeEditUserModal" type="button" class="btn btn-secondary">Cancel</button>
+        </form>
+      </div>
+    </div>
+    <!-- Modal for adding new user -->
+    <div v-if="showEditUserModal" class="modal-overlay">
+      <div class="modal-content">
+        <h2>Edit User</h2>
+        <form @submit.prevent="submitUser">
+          <div class="form-group">
+            <label for="UserFirstName">First Name</label>
+            <input v-model="userToEdit.firstName" type="text" id="editUserFirstName" required>
+          </div>
+          <div class="form-group">
+            <label for="editUserLastName">Last Name</label>
+            <input v-model="userToEdit.lastName" type="text" id="editUserLastName" required>
+          </div>
+          <div class="form-group">
+            <label for="editUserEmail">Email</label>
+            <input v-model="userToEdit.emailAdd" type="email" id="editUserEmail" required>
+          </div>
+          <div class="form-group">
+            <label for="editUserPassword">Password</label>
+            <input v-model="userToEdit.password" type="password" id="editUserPassword" required>
+          </div>
+          <button type="submit" class="btn btn-primary">Update</button>
+          <button @click="closeEditUserModal" type="button" class="btn btn-secondary">Cancel</button>
+        </form>
+      </div>
+    </div>
+
   </section>
 </template>
 
@@ -148,7 +206,7 @@ export default {
     const showProductModal = ref(false);
     const showEditProductModal = ref(false);
     const showUserModal = ref(false);
-    const showEditUserModal = ref(false);  // Add this line for user edit modal
+    const showEditUserModal = ref(false);
 
     const newProduct = reactive({
       prodName: '',
@@ -171,10 +229,10 @@ export default {
       firstName: '',
       lastName: '',
       emailAdd: '',
-      password: ''  // Add password if you want to allow updates
+      password: ''
     });
 
-    const createUser = reactive({
+    const newUser = reactive({
       firstName: '',
       lastName: '',
       emailAdd: '',
@@ -202,6 +260,7 @@ export default {
 
     const closeEditProductModal = () => {
       showEditProductModal.value = false;
+      resetProductForm();
     };
 
     const openUserModal = () => {
@@ -213,82 +272,98 @@ export default {
       resetUserForm();
     };
 
-    const openEditUserModal = (user) => {  // Function to open the edit user modal
+    const openEditUserModal = (user) => {
       Object.assign(userToEdit, user);
       showEditUserModal.value = true;
     };
 
     const closeEditUserModal = () => {
       showEditUserModal.value = false;
-    };
-
-    const resetProductForm = () => {
-      newProduct.prodName = '';
-      newProduct.amount = '';
-      newProduct.quantity = '';
-      newProduct.Category = '';
-      newProduct.prodUrl = '';
-    };
-
-    const resetUserForm = () => {
-      createUser.firstName = '';
-      createUser.lastName = '';
-      createUser.emailAdd = '';
-      createUser.password = '';
+      resetUserForm();
     };
 
     const submitProduct = async () => {
       try {
         await store.dispatch('createProduct', newProduct);
-        toast.success('Product created successfully!');
+        toast.success("Product added successfully");
         closeProductModal();
       } catch (error) {
-        toast.error('Failed to create product.');
-        console.error(error);
+        toast.error("Error adding product");
       }
     };
+    const submitUser = async () => {
+      try {
+        await store.dispatch('createUser', newUser);
+        toast.success("User added successfully");
+        closeProductModal();
+      } catch (error) {
+        toast.error("Error adding User");
+      }
+    };
+
 
     const updateProduct = async () => {
       try {
         await store.dispatch('updateProduct', productToEdit);
-        toast.success('Product updated successfully!');
+        toast.success("Product updated successfully");
         closeEditProductModal();
       } catch (error) {
-        toast.error('Failed to update product.');
-        console.error(error);
+        toast.error("Error updating product");
       }
     };
 
-    const submitUser = async () => {
+    const deleteProduct = async (productID) => {
       try {
-        await store.dispatch('createUser', createUser);
-        toast.success('User created successfully!');
-        closeUserModal();
+        await store.dispatch('deleteProduct', productID);
+        toast.success("Product deleted successfully");
       } catch (error) {
-        toast.error('Failed to create user.');
-        console.error(error);
+        toast.error("Error deleting product");
       }
     };
 
-    const updateUser = async () => {  // Add this function to handle user updates
+    const updateUser = async () => {
       try {
         await store.dispatch('updateUser', userToEdit);
-        toast.success('User updated successfully!');
+        toast.success("User updated successfully");
         closeEditUserModal();
       } catch (error) {
-        toast.error('Failed to update user.');
-        console.error(error);
+        toast.error("Error updating user");
       }
     };
 
-    const deleteUser = async (userId) => {
+    const deleteUser = async (userID) => {
       try {
-        await store.dispatch('deleteUser', userId);
-        toast.success('User deleted successfully!');
+        await store.dispatch('deleteUser', userID);
+        toast.success("User deleted successfully");
       } catch (error) {
-        toast.error('Failed to delete user.');
-        console.error(error);
+        toast.error("Error deleting user");
       }
+    };
+
+    const resetProductForm = () => {
+      Object.assign(newProduct, {
+        prodName: '',
+        amount: '',
+        quantity: '',
+        Category: '',
+        prodUrl: ''
+      });
+    };
+
+    const resetUserForm = () => {
+      Object.assign(newUser, {
+        firstName: '',
+        lastName: '',
+        emailAdd: '',
+        password: ''
+      });
+      Object.assign(userToEdit, {
+        userID: '',
+        firstName: '',
+        lastName: '',
+        emailAdd: '',
+        password: ''
+      });
     };
 
     return {
@@ -297,89 +372,94 @@ export default {
       showProductModal,
       showEditProductModal,
       showUserModal,
-      showEditUserModal,  // Add this line
+      showEditUserModal,
       newProduct,
       productToEdit,
-      userToEdit,  // Add this line
-      createUser,
+      userToEdit,
+      // createUser,
       openProductModal,
       closeProductModal,
       openEditProductModal,
       closeEditProductModal,
       openUserModal,
       closeUserModal,
-      openEditUserModal,  // Add this line
-      closeEditUserModal,  // Add this line
+      openEditUserModal,
+      closeEditUserModal,
       submitProduct,
       updateProduct,
-      submitUser,
-      updateUser,  // Add this line
+      deleteProduct,
+      updateUser,
       deleteUser,
+      submitUser,
+      newUser,
+
     };
   }
 };
 </script>
 
 <style scoped>
-/* Ensure the section is positioned relative */
 .admin-section {
-  position: relative;
-  margin: 20px;
-  overflow: hidden; /* Ensure no overflow from the image */
+  padding: 20px;
+  margin-bottom: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  background-color: white;
 }
 
-/* Make sure the background image container is positioned absolutely */
-.background-container {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: -1; /* Ensure the background is behind all content */
+.admin-title {
+  margin-bottom: 20px;
 }
 
-/* Make sure the background image covers the entire container */
-.background-image {
-  width: 100%;
-  height: 100%;
-  object-fit: cover; /* Cover the container without distortion */
+.admin-subtitle {
+  margin-bottom: 10px;
 }
 
-/* Adjust the container to ensure content is above the background */
-.container {
-  position: relative;
-  margin-top: 20px;
-  z-index: 1; /* Ensure the container is above the background image */
+.table th, .table td {
+  text-align: center;
 }
 
-/* Add the background image to grid elements */
-.admin-section .grid {
-  background-image: url('https://zakariyasalie.github.io/allimages/images/background1.png');
-  background-size: cover;
-  background-position: center;
+.action-buttons {
+  text-align: center;
+  margin-top: 10px;
 }
 
-/* Styling for the modals */
+.btn1 {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.btn1:hover {
+  background-color: #0056b3;
+}
+
 .modal-overlay {
   position: fixed;
   top: 0;
   left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgba(0, 0, 0, 0.5);
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 1000; /* Ensure the overlay is on top */
 }
 
 .modal-content {
-  background: white;
+  background-color: white;
   padding: 20px;
-  border-radius: 5px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
   width: 80%;
-  max-width: 500px;
-  z-index: 1001; /* Ensure the modal content is above the overlay */
+  max-width: 600px;
+}
+
+.modal-content h2 {
+  margin-bottom: 20px;
 }
 
 .form-group {
@@ -394,44 +474,28 @@ export default {
 .form-group input {
   width: 100%;
   padding: 8px;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-}
-
-/* Other styling remains the same */
-.admin-header {
-  background: #f8f9fa;
-  padding: 10px;
   border-radius: 5px;
+  border: 1px solid #ccc;
 }
 
-.admin-title {
-  margin: 0;
-}
-
-.admin-subtitle {
-  margin-top: 0;
-}
-
-.table {
-  width: 100%;
-  margin-top: 20px;
-}
-
-.table th, .table td {
-  text-align: center;
-}
-
-.action-buttons {
-  margin-top: 10px;
-}
-
-.btn1 {
-  margin-right: 10px;
-}
-
-.delete-button {
-  background: #dc3545;
+.btn {
+  background-color: #007bff;
   color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.btn-secondary {
+  background-color: #6c757d;
+}
+
+.btn-secondary:hover {
+  background-color: #5a6268;
+}
+
+.btn:hover {
+  background-color: #0056b3;
 }
 </style>
