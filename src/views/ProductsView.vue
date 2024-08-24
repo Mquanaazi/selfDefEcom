@@ -80,6 +80,7 @@ export default {
   padding: 20px 0;
   min-height: 100vh;
   overflow: hidden;
+  margin-top: auto;
 }
 
 .background-container {

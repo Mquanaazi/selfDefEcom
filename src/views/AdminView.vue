@@ -321,48 +321,74 @@ export default {
 </script>
 
 <style scoped>
-/* Add your styles here */
+/* Ensure the section is positioned relative */
 .admin-section {
-  margin: 20px;
-}
-.background-container {
   position: relative;
+  margin: 20px;
+  overflow: hidden; /* Ensure no overflow from the image */
 }
+
+/* Make sure the background image container is positioned absolutely */
+.background-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1; /* Ensure the background is behind all content */
+}
+
+/* Make sure the background image covers the entire container */
 .background-image {
   width: 100%;
-  height: auto;
+  height: 100%;
+  object-fit: cover; /* Cover the container without distortion */
 }
+
+/* Adjust the container to ensure content is above the background */
 .container {
+  position: relative;
   margin-top: 20px;
+  z-index: 1; /* Ensure the container is above the background image */
 }
+
+/* Other styling remains the same */
 .admin-header {
   background: #f8f9fa;
   padding: 10px;
   border-radius: 5px;
 }
+
 .admin-title {
   margin: 0;
 }
+
 .admin-subtitle {
   margin-top: 0;
 }
+
 .table {
   width: 100%;
   margin-top: 20px;
 }
+
 .table th, .table td {
   text-align: center;
 }
+
 .action-buttons {
   margin-top: 10px;
 }
+
 .btn1 {
   margin-right: 10px;
 }
+
 .delete-button {
   background: #dc3545;
   color: white;
 }
+
 .modal-overlay {
   position: fixed;
   top: 0;
@@ -374,6 +400,7 @@ export default {
   justify-content: center;
   align-items: center;
 }
+
 .modal-content {
   background: white;
   padding: 20px;
@@ -381,17 +408,21 @@ export default {
   width: 80%;
   max-width: 500px;
 }
+
 .form-group {
   margin-bottom: 15px;
 }
+
 .form-group label {
   display: block;
   margin-bottom: 5px;
 }
+
 .form-group input {
   width: 100%;
   padding: 8px;
   border: 1px solid #ddd;
   border-radius: 4px;
 }
+
 </style>
