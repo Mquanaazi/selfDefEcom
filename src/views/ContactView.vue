@@ -4,19 +4,6 @@
     <div class="background-container">
       <img src="https://zakariyasalie.github.io/allimages/images/background1.png" alt="Background" loading="lazy" class="background-image">
     </div>
-
-    <!-- Main Content Container -->
-    <div class="container">
-      <!-- Top Section with Grid Layout -->
-      <div class="grid gap-3 row-gap-1">
-        <div class="p-2 g-col-3 border-bottom">
-          <br />
-        </div>
-        <div class="p-2 g-col-3 border-bottom">
-          <br />
-        </div>
-      </div>
-
       <!-- Main Content -->
       <div class="row">
         <div class="col-12 text-center">
@@ -49,7 +36,6 @@
           </form>
         </div>
       </div>
-    </div>
   </section>
 </template>
 
@@ -133,20 +119,17 @@ export default {
 }
 
 .about-me-content {
-  /* margin-bottom: 1rem; */
+  margin-bottom: 1rem;
   color: #1abc9c; /* Light text color */
   transition: color 0.3s; /* Smooth color transition */
-  display: block;
-  text-align: center;
-  margin-bottom: 10px;
 }
 
 .form-group {
-  position: relative;
+  margin-bottom: 1.5rem;
 }
 
 .form-control {
-  width: 90%;
+  width: 100%;
   padding: 0.75rem 1rem;
   font-size: 1rem;
   border: 1px solid #ccc;

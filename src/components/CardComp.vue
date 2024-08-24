@@ -22,30 +22,50 @@ export default {
   border: 1px solid #1abc9c;
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  padding: 20px;
-  background-color: #2c3e50; /* Matches the background of the About page */
+  padding: 0;
+  background-color: #2c3e50;
   margin: 20px 0;
   color: white;
+  height: 450px; /* Fixed height for uniform card size */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  overflow: hidden;
 }
 
 .card-header {
-  padding: 0;
-  margin-bottom: 15px;
+  height: 250px; /* Adjusted height for image consistency */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.card-header img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Ensures the image covers the header without stretching */
 }
 
 .card-body {
-  padding: 10px;
+  padding: 20px;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 h5.card-title {
-  font-size: 24px;
+  font-size: 18px;
   font-weight: bold;
   color: white;
+  margin-bottom: 10px;
 }
 
 p.lead {
-  font-size: 18px;
+  font-size: 14px;
   color: white;
+  margin-bottom: 10px;
 }
 
 .button-wrapper .btn {
@@ -63,8 +83,7 @@ button.btn-dark {
 }
 
 .card:hover {
-  color: #1abc9c;
-  background-color: #2c3e50;
   transform: scale(1.05);
+  transition: transform 0.3s ease-in-out;
 }
 </style>

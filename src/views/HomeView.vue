@@ -14,7 +14,7 @@
     <div>
       <!-- Header Section -->
       <section class="header-section">
-        <p class="location">CERTIFIED WEB DESIGNER BASED IN OAKLAND, CALIFORNIA</p>
+        <p class="location">MOST RECENT, TOP SELLERS</p>
         <h2 class="title">Problems I can help with</h2>
         <div class="divider"></div>
       </section>
@@ -24,18 +24,18 @@
         <div class="grid-container">
           <div class="grid-item">
             <img src="https://zakariyasalie.github.io/allimages/images/TacticalFlashlight.png" alt="Problem 1" loading="lazy">
-            <h3>Web Design</h3>
-            <p>Focus on how you can help and benefit your user. Use simple words to avoid confusion.</p>
+            <h3>Tactical Flashlight</h3>
+            <p>This device can be used to blind & shock any threats.</p>
           </div>
           <div class="grid-item">
-            <img src="https://zakariyasalie.github.io/allimages/images/taser.png" alt="Problem 2" loading="lazy">
-            <h3>Graphic Design</h3>
-            <p>Focus on how you can help and benefit your user. Use simple words to avoid confusion.</p>
+            <img src="https://mquanaazi.github.io/huluImages/stungun.jpg" alt="Problem 2" loading="lazy">
+            <h3>StunGun</h3>
+            <p>This can be used to shock any threats leaving them useless for aproximately 15 minutes.</p>
           </div>
           <div class="grid-item">
-            <img src="https://zakariyasalie.github.io/allimages/images/PepperSpray.png" alt="Problem 3" loading="lazy">
-            <h3>Content Creation</h3>
-            <p>Focus on how you can help and benefit your user. Use simple words to avoid confusion.</p>
+            <img src="https://mquanaazi.github.io/huluImages/bladeknife.jpg" alt="Problem 3" loading="lazy">
+            <h3>Blade Knife</h3>
+            <p>This can be used to stab any threats.</p>
           </div>
         </div>
       </section>
